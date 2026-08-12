@@ -1,26 +1,28 @@
-# Pure Python AES-128 Encryption Engine (From Scratch)
+# AES-128-From-Scratch (Pure Python)
 
-A step-by-step, pure Python implementation of the **Advanced Encryption Standard (AES-128)** built without external cryptographic libraries. 
+A step-by-step implementation of the **Advanced Encryption Standard (AES-128)** written in pure Python without external libraries. 
 
-This project explicitly demonstrates every stage of the AES block cipher pipeline, matching standard NIST test vectors and PKCS7-padded outputs from online crypto tools.
+This project demonstrates the exact mathematical transformations executed on a 128-bit (16-byte) block of data through all 10 rounds of AES.
 
-## 🚀 Features
-- **Key Expansion:** Dynamic 10-round key derivation using S-Box substitution, cyclic shifts (`RotWord`), and round constants (`Rcon`).
-- **Core State Transformations:**
-  - `SubBytes` (Non-linear byte substitution using S-Box)
+## 📌 Features
+- **Pure Python:** Built entirely using standard library functions.
+- **Dynamic Key Expansion:** Derives 11 round keys (176 bytes) dynamically using `RotWord`, `SubWord`, and `Rcon`.
+- **Full AES Pipeline:**
+  - `SubBytes` (S-Box byte substitution)
   - `ShiftRows` (Cyclic row permutations)
-  - `MixColumns` (Galois Field $GF(2^8)$ matrix multiplication)
-  - `AddRoundKey` (Bitwise XOR with round keys)
-- **Output Formats:** Column-major state matrix conversion to Hex and Base64.
+  - `MixColumns` (Galois Field $GF(2^8)$ multiplication)
+  - `AddRoundKey` (Bitwise XOR state blending)
+- **Column-Major Conversion:** Formats the final $4 \times 4$ state matrix into standard Hex and Base64 outputs.
 
-## 🛠️ Project Structure
-- `AES.py`: Main encryption pipeline runner.
-- `AddRoundKey.py`: Implements Key Expansion algorithm and XOR state blending.
-- `SubBytes.py`: Non-linear $S$-Box byte substitutions.
-- `ShiftRow.py`: Cyclic row shifts.
-- `MixColumns.py`: Galois Field $GF(2^8)$ arithmetic.
-- `ConvertText.py`: State matrix to Hex and Base64 string converter.
+> **Note on Block Size & Padding:** 
+> This implementation processes raw 128-bit (16-byte) blocks in ECB mode without automatic PKCS7 padding. 
+> Inputs must be exactly 16 bytes (128 bits) in length.
 
-## 💻 How to Run
+## ⚙️ Usage Requirements
+- Input text must be **exactly 16 bytes / 16 characters** (e.g., `'Hello AES Cipher'`).
+- Secret key must be **exactly 16 bytes / 16 characters** (e.g., `'MySecretKey12345'`).
+
+## 🚀 How to Run
+
 ```bash
 python AES.py
